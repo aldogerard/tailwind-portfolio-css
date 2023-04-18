@@ -4,7 +4,8 @@ const navMenu = document.querySelector("#nav-menu");
 hamburger.addEventListener("click", () => {
   hamburger.classList.toggle("hamburger-active");
   // navMenu.classList.toggle("hidden");
-  navMenu.classList.toggle("translate-x-0");
+  navMenu.classList.toggle("translate-x-96");
+  navMenu.classList.toggle("opacity-0");
 });
 
 // Navbar Fixed
