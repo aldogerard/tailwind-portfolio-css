@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aldo Gerard | Tailwind CSS
   </title>
-  <link rel="stylesheet" href="public/css/final.css">
+  <link rel="stylesheet" href="public/css/style.css">
   <link rel="shortcut icon" href="assets/foto.png" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600;700;900&display=swap"
     rel="stylesheet">
@@ -369,26 +369,31 @@
           <p class="font-medium text-md max-w-lg mx-auto text-secondary md:text-lg">Lorem ipsum, dolor sit amet
             consectetur adipisicing elit. Animi ullam error asperiores nobis, repellat corporis!</p>
         </div>
-        <form>
+        <div role="alert"
+          class="alert-sukses max-w-xl mx-auto  my-5 py-3 px-5 hidden relative items-center justify-between bg-green-400 rounded-md shadow-md ">
+          <h6 class="text-white">Pesan anda sudah terkirim</h6>
+          <span class="absolute -right-4 -top-4 p-2 rounded-full bg-red-100 cursor-pointer">❌</span>
+        </div>
+        <form name="contact-form">
           <div class="max-w-xl mx-auto">
             <div class="w-full mb-8 ">
               <label for="name" class="text-base text-primary font-bold">Nama</label>
-              <input type="text" id="name"
+              <input type="text" id="name" name="nama"
                 class="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary">
             </div>
             <div class="w-full mb-8 ">
               <label for="email" class="text-base text-primary font-bold">Email</label>
-              <input type="email" id="email"
+              <input type="email" id="email" name="email"
                 class="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary">
             </div>
             <div class="w-full mb-8 ">
               <label for="message" class="text-base text-primary font-bold">Pesan</label>
-              <textarea type="pesan" id="message"
+              <textarea type="text" id="message" name="pesan"
                 class="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary h-32 resize-none"></textarea>
             </div>
             <div class="w-full">
-              <button
-                class="text-base w-full font-semibold text-white bg-primary py-3 px-8 rounded-full hover:shadow-lg transition duration-300 hover:opacity-80">Kirim</button>
+              <button type="submit"
+                class="btn-kirim text-base w-full font-semibold text-white bg-primary py-3 px-8 rounded-full hover:shadow-lg transition duration-300 hover:opacity-80">Kirim</button>
             </div>
           </div>
         </form>
@@ -492,6 +497,36 @@
   <!-- Back To Top End -->
 
   <script src="public/js/script.js"></script>
+  <script>
+    const scriptURL =
+      'https://script.google.com/macros/s/AKfycbzxrqa9cjvmpiu417t-t59beGQvoM84j9ajhF-RUh_YjIu5ooCj03NVG6U47R4EoajsKA/exec'
+    const form = document.forms['contact-form']
+    const btnKirim = document.querySelector(".btn-kirim")
+    const alertSukses = document.querySelector(".alert-sukses")
+    const alertSuksesCross = document.querySelector(".alert-sukses span")
+
+    alertSuksesCross.addEventListener("click", () => {
+      alertSukses.classList.remove("flex");
+      alertSukses.classList.add("hidden");
+    })
+
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      btnKirim.innerHTML = "Pesan Sedang Dikirim !!!"
+      fetch(scriptURL, {
+          method: 'POST',
+          body: new FormData(form)
+        })
+        .then(response => console.log('Success!', response))
+        .catch(error => console.error('Error!', error.message))
+        .finally(() => {
+          btnKirim.innerHTML = "Kirim"
+          alertSukses.classList.remove("hidden")
+          alertSukses.classList.add("flex")
+          form.reset()
+        })
+    })
+  </script>
 </body>
 
 </html>
