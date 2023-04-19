@@ -11,7 +11,7 @@ hamburger.addEventListener("click", () => {
 window.addEventListener("scroll", () => {
   const header = document.querySelector("header");
   const backToTop = document.querySelector("#to-top");
-  if (scrollY > 10) {
+  if (scrollY > 1) {
     return header.classList.add("navbar-fixed"), backToTop.classList.remove("scale-0");
   }
   return header.classList.remove("navbar-fixed"), backToTop.classList.add("scale-0");
